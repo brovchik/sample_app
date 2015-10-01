@@ -14,7 +14,12 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    if !current_user.admin?
     sign_out
     redirect_to root_url
+    else
+      user = User.find_by(email: params[:session][:email].downcase)
+      redirect_to user
+    end
   end
 end

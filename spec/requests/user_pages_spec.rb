@@ -122,7 +122,7 @@ describe "UserPages" do
     end
   end
 
-  describe 'index' do
+  describe "index" do
     let(:user) { FactoryGirl.create(:user) }
     before(:each) do
       sign_in user

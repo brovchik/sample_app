@@ -24,11 +24,7 @@ describe 'Authentication' do
     describe "with valid info" do
       let(:user) { FactoryGirl.create(:user) }
 
-      before do
-        fill_in "Email", with: user.email.upcase
-        fill_in "Password", with: user.password
-        click_button "Sign in"
-      end
+      before { sign_in user, uppercase_email: true }
 
       it { should have_title(user.name)}
       it { should have_link('Users', href: users_path) }
@@ -52,9 +48,7 @@ describe 'Authentication' do
       describe 'when attempting to visit a protected page' do
         before do
           visit edit_user_path(user)
-          fill_in 'Email', with: user.email
-          fill_in 'Password', with: user.password
-          click_button 'Sign in'
+          sign_in user, no_capybara: true
         end
 
         describe 'after signing in' do
