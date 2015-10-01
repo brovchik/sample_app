@@ -81,6 +81,12 @@ describe 'Authentication' do
         end
 
       end
+
+      describe 'profile and settings links are not visible' do
+        before { visit root_path }
+        it { should_not have_link('Settings')}
+        it { should_not have_link('Profile') }
+      end
     end
 
     let(:user)  { FactoryGirl.create(:user) }
