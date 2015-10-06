@@ -183,6 +183,24 @@ describe "UserPages" do
       it { should have_content(m1.content) }
       it { should have_content(m2.content) }
       it { should have_content(user.microposts.count) }
+
+      describe "will be paginated" do
+        before(:all) do
+          @another_user = user
+          30.times { FactoryGirl.create(:micropost, user: @another_user, content: "micropost") }
+        end
+        after(:all) do
+          Micropost.delete_all
+        end
+
+        it { should have_selector('div.pagination') }
+
+        it "should list each micropost" do
+          Micropost.paginate(page: 1).each do |post|
+            expect(page).to have_selector('li', text: post.content)
+          end
+        end
+      end
     end
 
     describe "follow/unfollow buttons" do
