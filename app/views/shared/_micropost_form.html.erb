@@ -4,4 +4,12 @@
       <%= f.text_area :content, placeholder: "Compose new micropost..." %>
     </div>
     <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+    <div id="remaining-counter"></div>
+    <script>
+      var textArea = document.getElementById('micropost_content');
+      textArea.addEventListener('focus', initializeCounter);
+      textArea.addEventListener('blur', function() {
+          document.getElementById('remaining-counter').innerHTML = '';
+      })
+    </script>
 <% end %>

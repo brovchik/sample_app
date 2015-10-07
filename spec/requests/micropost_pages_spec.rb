@@ -42,4 +42,13 @@ describe "Micropost pages" do
       end
     end
   end
+
+  describe "delete button should not be visible for other user" do
+    let(:another_user) { FactoryGirl.create(:user) }
+    before do
+      FactoryGirl.create(:micropost, user: another_user)
+    end
+
+    it { should_not have_link('delete') }
+  end
 end
